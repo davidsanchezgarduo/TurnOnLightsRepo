@@ -42,7 +42,9 @@ public class CameraControl : MonoBehaviour
             Debug.Log("Mouse up");
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 30))
+            int layerMask = 1 << 8;
+            layerMask = ~layerMask;
+            if (Physics.Raycast(ray, out hit, 30, layerMask))
             {
                 Debug.Log(hit.collider.tag);
                 if (hit.collider.CompareTag("Door")) {

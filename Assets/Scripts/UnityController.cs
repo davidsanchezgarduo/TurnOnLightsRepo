@@ -36,6 +36,8 @@ public class UnityController : MonoBehaviour
         initialLives = lives;
         currentTarget = null;
         areaCircle.localScale = new Vector3(lightRange*2,0.01f,lightRange*2);
+
+
     }
 
     // Update is called once per frame

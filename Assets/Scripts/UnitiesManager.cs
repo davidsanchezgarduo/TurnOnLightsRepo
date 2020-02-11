@@ -86,6 +86,20 @@ public class UnitiesManager : MonoBehaviour
         UnityController u = unityToAdd.GetComponent<UnityController>();
         unities.Add(u);
         SearchInteractableObjects(u.transform.position,u.lightRange);
+
+        RaycastHit hit;
+        int layerMask = 1 << 8;
+        Ray ray = new Ray(new Vector3(unityToAdd.transform.position.x, unityToAdd.transform.position.y+30, unityToAdd.transform.position.z), -unityToAdd.transform.up);
+        /*Vector3 up = unityToAdd.transform.TransformDirection(Vector3.up) * 10;
+        Debug.DrawRay(unityToAdd.transform.position,up, Color.green,10);*/
+        if (Physics.Raycast(ray, out hit, 30))
+        {
+            if (hit.transform.CompareTag("Shadow")) {
+                hit.transform.GetComponent<ShadowController>().SetUnit(hit.textureCoord,unityToAdd.GetComponent<UnityController>().lightRange);
+            }
+
+        }
+
     }
 
     public void RemoveUnity(UnityController unityToRemove) {

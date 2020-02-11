@@ -11,6 +11,18 @@ public class LightController : MonoBehaviour
     {
         lightArea = transform.GetChild(0);
         lightArea.localScale = new Vector3(lightRange*2,0.01f, lightRange*2);
+
+        RaycastHit hit;
+        int layerMask = 1 << 8;
+        Ray ray = new Ray(new Vector3(transform.position.x,transform.position.y + 30, transform.position.z), -transform.up);
+        if (Physics.Raycast(ray, out hit, 30))
+        {
+            if (hit.transform.CompareTag("Shadow"))
+            {
+                hit.transform.GetComponent<ShadowController>().SetUnit(hit.textureCoord, lightRange);
+            }
+
+        }
     }
 
     // Update is called once per frame

@@ -52,7 +52,9 @@ public class UnityCreator : MonoBehaviour
             Vector3 pos = mainCamera.ScreenToWorldPoint(new Vector3(posTouch.x, posTouch.y, 5));
             dir = pos - mainCamera.transform.position;
             RaycastHit hitInfo;
-            if (Physics.Raycast(mainCamera.transform.position, dir, out hitInfo, 20))
+            int layerMask = 1 << 8;
+            layerMask = ~layerMask;
+            if (Physics.Raycast(mainCamera.transform.position, dir, out hitInfo, 20,layerMask))
             {
                 //Debug.Log(hitInfo.collider.name + ", " + hitInfo.collider.tag + " . " + hitInfo.point);
                 currentUnity.transform.position = new Vector3(hitInfo.point.x, 0.5f, hitInfo.point.z);
@@ -88,7 +90,9 @@ public class UnityCreator : MonoBehaviour
             Vector3 pos = mainCamera.ScreenToWorldPoint(new Vector3(posTouch.x, posTouch.y, 5));
             dir = pos - mainCamera.transform.position;
             RaycastHit hitInfo;
-            if (Physics.Raycast(mainCamera.transform.position, dir, out hitInfo, 20))
+            int layerMask = 1 << 8;
+            layerMask = ~layerMask;
+            if (Physics.Raycast(mainCamera.transform.position, dir, out hitInfo, 20,layerMask))
             { 
                 currentUnity.transform.position = new Vector3(hitInfo.point.x,0.5f,hitInfo.point.z);
                 NavMeshHit hitNav;
