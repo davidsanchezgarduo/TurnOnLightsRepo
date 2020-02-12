@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
     private UnityController currentTarget;
     private int initialLives;
     private EnemyState currentState;
-    private float distToAttack = 1f;
+    private float distToAttack = 2f;
     private float currentTimeAttack;
 
     public Transform areaCircle;
@@ -42,15 +42,20 @@ public class EnemyController : MonoBehaviour
 
         agent.SetDestination(new Vector3(goal.transform.position.x,0.5f, goal.transform.position.z));
         agent.speed = speed;
-        agent.stoppingDistance = distToAttack;
+        //agent.stoppingDistance = distToAttack;
         currentTarget = null;
         currentState = EnemyState.RUNNING;
         currentTimeAttack = 0;
+
+        Debug.Log("Enter start enemy"+ goal);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(lives == 0) {
+            return;
+        }
         //Buscar unidades cercanas para atacarlas
         if (currentState == EnemyState.RUNNING)
         {
@@ -61,7 +66,9 @@ public class EnemyController : MonoBehaviour
                 agent.SetDestination(new Vector3(currentTarget.transform.position.x, 0.5f, currentTarget.transform.position.z));
             }
             else {
+
                 float dist = Vector3.Distance(transform.position, goal.transform.position);
+                Debug.Log(dist+"  "+distToAttack);
                 if (dist <= distToAttack)
                 {
                     lives = 0;
@@ -72,11 +79,22 @@ public class EnemyController : MonoBehaviour
             }
         }
         else if (currentState == EnemyState.SEARCHING) {
-            float dist = Vector3.Distance(transform.position,currentTarget.transform.position);
-            if (dist <= distToAttack) {
-               
-                agent.speed = 0;
-                currentState = EnemyState.ATTACKING;
+            if (currentTarget.lives > 0)
+            {
+                float dist = Vector3.Distance(transform.position, currentTarget.transform.position);
+                Debug.Log("In Search "+dist+" "+distToAttack);
+                if (dist <= distToAttack)
+                {
+
+                    agent.speed = 0;
+                    currentState = EnemyState.ATTACKING;
+                }
+            }
+            else {
+                currentTimeAttack = 0;
+                currentState = EnemyState.RUNNING;
+                agent.speed = speed;
+                agent.SetDestination(new Vector3(goal.transform.position.x, 0.5f, goal.transform.position.z));
             }
         }
         else if (currentState == EnemyState.ATTACKING)

@@ -20,6 +20,8 @@ public class UnityController : MonoBehaviour
     public float speedAttack;
     public int lives;
     public Vector2 myTextCoord;
+    public Material topMaterial;
+    public Material normalMaterial;
 
     public Transform areaCircle;
     public Image lifeImage;
@@ -44,6 +46,10 @@ public class UnityController : MonoBehaviour
     // Update is called once per frame
     public void UpdateUnit()
     {
+
+        if(lives == 0) {
+            return;
+        }
 
         if (currentState == UnitState.SEARCHING)
         {
@@ -93,5 +99,9 @@ public class UnityController : MonoBehaviour
             lifeImage.fillAmount = (float)lives / (float)initialLives;
         }
         return false;
+    }
+
+    public void StablishUnit() {
+        GetComponent<MeshRenderer>().material = normalMaterial;
     }
 }

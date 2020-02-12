@@ -28,6 +28,7 @@ public class UnityCreator : MonoBehaviour
     }
 
     public void StartDrag(Vector2 posTouch) {
+        CameraControl.instance.inMovement = false;
         //Obtener unity gameobject
         currentUnity = Instantiate(prefabObject, Vector3.zero, Quaternion.identity);
         currentUnityMaterial = currentUnity.GetComponent<MeshRenderer>().material;
@@ -42,6 +43,7 @@ public class UnityCreator : MonoBehaviour
 
     public void EndDrag(Vector2 posTouch)
     {
+        CameraControl.instance.inMovement = true;
         if (posTouch.y < 200)
         {
             Destroy(currentUnity);

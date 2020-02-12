@@ -19,7 +19,8 @@ public class LightController : MonoBehaviour
         {
             if (hit.transform.CompareTag("Shadow"))
             {
-                hit.transform.GetComponent<ShadowController>().SetUnit(hit.textureCoord, lightRange);
+                hit.transform.GetComponent<ShadowController>().SetGoalLight(hit.textureCoord, lightRange);
+                //hit.transform.GetComponent<ShadowController>().SetUnit(hit.textureCoord, lightRange);
             }
 
         }

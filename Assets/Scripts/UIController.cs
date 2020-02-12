@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public Button menuButton;
     public TextMeshProUGUI hordeText;
     public TextMeshProUGUI livesText;
+    private bool menuOpen;
 
     public void Awake()
     {
@@ -26,6 +27,7 @@ public class UIController : MonoBehaviour
         pauseAnimator.gameObject.SetActive(false);
         dataText.text = "Unidad: \nFuerza: \nVelocidad: \nRango: \nVitalidad: ";
         hordeText.text = "Horde: 0";
+        menuOpen = false;
     }
 
     // Update is called once per frame
@@ -35,13 +37,15 @@ public class UIController : MonoBehaviour
     }
 
     public void EnterMenu() {
-        CameraControl.instance.inMovement = false;
+        //CameraControl.instance.inMovement = false;
         menuAnimator.SetTrigger("In");
+        menuOpen = true;
     }
 
     public void CloseMenu() {
-        CameraControl.instance.inMovement = true;
+        //CameraControl.instance.inMovement = true;
         menuAnimator.SetTrigger("Out");
+        menuOpen = false;
     }
 
     public void ClickPause() {
@@ -68,7 +72,7 @@ public class UIController : MonoBehaviour
 
     public void SetHorde(int h)
     {
-        if (!CameraControl.instance.inMovement)
+        if (menuOpen)
         {
             CloseMenu();
         }

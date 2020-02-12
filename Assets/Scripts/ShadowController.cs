@@ -9,6 +9,8 @@ public class ShadowController : MonoBehaviour
     private Color resetColor;
     private Color alphaColor;
     private Texture2D texture;
+    private Vector2 goalLight;
+    private float goalLightRange;
     // Start is called before the first frame update
 
     private void Awake()
@@ -33,6 +35,16 @@ public class ShadowController : MonoBehaviour
     void Start()
     {
         myScale = transform.localScale.x;
+    }
+
+    public void SetGoalLight(Vector2 textCoord, float range) {
+        goalLight = textCoord;
+        goalLightRange = range;
+        SetUnit(goalLight, goalLightRange);
+    }
+
+    public void ReescanGoal() {
+        SetUnit(goalLight, goalLightRange);
     }
 
     public void SetUnit(Vector2 textureCoord, float rangeLight) {
@@ -85,5 +97,7 @@ public class ShadowController : MonoBehaviour
         }
         texture.Apply();
     }
+
+
 
 }

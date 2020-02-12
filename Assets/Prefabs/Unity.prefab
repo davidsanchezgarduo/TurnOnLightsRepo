@@ -156,7 +156,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b5a49151dca94864ebfc7250b1cceb2f, type: 2}
+  - {fileID: 2100000, guid: 77e5735e1e531418fb55deb92828e200, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -209,6 +209,9 @@ MonoBehaviour:
   lightRange: 5
   speedAttack: 0.4
   lives: 50
+  myTextCoord: {x: 0, y: 0}
+  topMaterial: {fileID: 2100000, guid: 77e5735e1e531418fb55deb92828e200, type: 2}
+  normalMaterial: {fileID: 2100000, guid: b5a49151dca94864ebfc7250b1cceb2f, type: 2}
   areaCircle: {fileID: 3413415051862465412}
   lifeImage: {fileID: 3413415052707080773}
 --- !u!1 &3413415052707080775
@@ -268,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: ce2bec4a5288a4c938acdd76df956d49, type: 2}
   m_Color: {r: 0.0240142, g: 0.7830189, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -320,7 +323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 85, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.2}
+  m_AnchoredPosition: {x: 0, y: 0.5}
   m_SizeDelta: {x: 1, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3413415053066105324

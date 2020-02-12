@@ -87,6 +87,7 @@ public class UnitiesManager : MonoBehaviour
     public void AddUnity(GameObject unityToAdd) {
         GameManager.instance.SetUnit();
         UnityController u = unityToAdd.GetComponent<UnityController>();
+        u.StablishUnit();
         unities.Add(u);
         SearchInteractableObjects(u.transform.position,u.lightRange);
 
@@ -116,6 +117,10 @@ public class UnitiesManager : MonoBehaviour
     public void RemoveUnity(UnityController unityToRemove) {
         unities.Remove(unityToRemove);
         shadow.RemoveUnit(unityToRemove.myTextCoord,unityToRemove.lightRange);
+        for(int i = 0; i < unities.Count; i++) {
+            shadow.SetUnit(unities[i].myTextCoord, unities[i].lightRange);
+        }
+        shadow.ReescanGoal();
         //Destroy(unityToRemove);
     }
 

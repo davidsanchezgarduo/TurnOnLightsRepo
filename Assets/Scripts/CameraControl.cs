@@ -39,7 +39,7 @@ public class CameraControl : MonoBehaviour
 #else
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log("Mouse up");
+            //.Log("Mouse up");
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             int layerMask = 1 << 8;

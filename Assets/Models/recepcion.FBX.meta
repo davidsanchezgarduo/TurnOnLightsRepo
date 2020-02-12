@@ -3,7 +3,77 @@ guid: 75c0583b133bd404e83462f0b55df9e8
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #44
+    second: {fileID: 2100000, guid: 8bf790eeb4f674f4e954648e035074fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #46
+    second: {fileID: 2100000, guid: 9c9728ba2a0f3443fa27ac48bd55c3c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #47
+    second: {fileID: 2100000, guid: cfc148ace67674fb3ba05a51b7aefa97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #48
+    second: {fileID: 2100000, guid: 7ab850f70e3b3429a8fae130764a883e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #49
+    second: {fileID: 2100000, guid: f9e6190b4724544a9bfa0edbd0df4ded, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #50
+    second: {fileID: 2100000, guid: 9b2e0783ee37b459d98483a42ec7875d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #52
+    second: {fileID: 2100000, guid: 6fbd6d0a698d84e9baf5bbe71b65a004, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: d365583bc73df4bd090592a874af8aff, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: azulejoTexture
+    second: {fileID: 2800000, guid: 0a604eb9cb4cd4ff6962dcbabbe8cbc3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: doorTexture
+    second: {fileID: 2800000, guid: fe1ad942a5af549abaf63c806ffbf093, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: hotelWallTexture
+    second: {fileID: 2800000, guid: b87067181d8ec473795ec81ffb9585e1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: sillonTexture
+    second: {fileID: 2800000, guid: f51ec5202c2b347a0b0a724eebd660be, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texturaElevador
+    second: {fileID: 2800000, guid: eab35d61913f54be8977e2757b308b04, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: woodTexture
+    second: {fileID: 2800000, guid: 44d248ddd99e9412d99e4fd62047b438, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -80,7 +150,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.0254
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
