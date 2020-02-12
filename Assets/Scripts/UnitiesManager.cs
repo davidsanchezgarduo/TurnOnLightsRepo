@@ -10,7 +10,9 @@ public class UnitiesManager : MonoBehaviour
     private List<UnityController> unities;
     private List<LightController> ligths;
     private List<DoorControl> doors;
+    private List<CivilController> civils;
     private float distanceMinBetween = 0.5f;
+    private ShadowController shadow;
 
     public bool inHorde;
 
@@ -18,6 +20,7 @@ public class UnitiesManager : MonoBehaviour
     {
         instance = this;
         doors = new List<DoorControl>();
+        civils = new List<CivilController>();
     }
 
     // Start is called before the first frame update
@@ -95,7 +98,15 @@ public class UnitiesManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 30))
         {
             if (hit.transform.CompareTag("Shadow")) {
-                hit.transform.GetComponent<ShadowController>().SetUnit(hit.textureCoord,unityToAdd.GetComponent<UnityController>().lightRange);
+                unityToAdd.GetComponent<UnityController>().myTextCoord = hit.textureCoord;
+                if (shadow == null)
+                {
+                    shadow = hit.transform.GetComponent<ShadowController>();
+                    shadow.SetUnit(hit.textureCoord, unityToAdd.GetComponent<UnityController>().lightRange);
+                }
+                else {
+                    shadow.SetUnit(hit.textureCoord, unityToAdd.GetComponent<UnityController>().lightRange);
+                }
             }
 
         }
@@ -104,6 +115,7 @@ public class UnitiesManager : MonoBehaviour
 
     public void RemoveUnity(UnityController unityToRemove) {
         unities.Remove(unityToRemove);
+        shadow.RemoveUnit(unityToRemove.myTextCoord,unityToRemove.lightRange);
         //Destroy(unityToRemove);
     }
 
@@ -113,6 +125,11 @@ public class UnitiesManager : MonoBehaviour
 
     public void AddDoor(DoorControl d) {
         doors.Add(d);
+    }
+
+    public void AddCivil(CivilController c)
+    {
+        civils.Add(c);
     }
 
     public UnityController SearchUnit(Vector3 pos, float range) {
@@ -134,6 +151,14 @@ public class UnitiesManager : MonoBehaviour
             if (dist <= range)
             {
                 doors[i].canOpen = true;
+            }
+        }
+
+        for (int i = 0; i < civils.Count; i++) {
+            float dist = Vector3.Distance(civils[i].transform.position, pos);
+            if (dist <= range)
+            {
+                civils[i].ActiveCivil();
             }
         }
     }

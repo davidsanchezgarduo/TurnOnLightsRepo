@@ -19,6 +19,7 @@ public class UnityController : MonoBehaviour
     public float lightRange;
     public float speedAttack;
     public int lives;
+    public Vector2 myTextCoord;
 
     public Transform areaCircle;
     public Image lifeImage;
