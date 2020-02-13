@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
+    public int levelId;
+    public LevelScriptableObject levelData;
     public int horde;
     public int unitsToNextHorde;
     public int unitsPerHorde = 2;
@@ -15,6 +16,15 @@ public class GameManager : MonoBehaviour
 
     private List<SpotController> spots;
     public bool hasFinishSpawn;
+    
+    public GameObject civilPrefab;
+    public Transform civilParent;
+
+    public int unitsDeployed;
+    public int zombiesKilled;
+    public int points;
+    private int pointsPerZombie = 50;
+    private int restantCivils;
 
     private void Awake()
     {
@@ -25,12 +35,20 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        unitsDeployed = 0;
+        zombiesKilled = 0;
+        points = 0;
         horde = 1;
         inHorde = false;
-        unitsToNextHorde = unitsPerHorde;
-        
+        unitsToNextHorde = levelData.levels[levelId].unitsToHorde;
+        restantCivils = levelData.levels[levelId].civilPositions.Length;
         UIController.instance.SetLivesText(lives);
+
+        for(var i =0; i < levelData.levels[levelId].civilPositions.Length; i++) {
+            GameObject civil = Instantiate(civilPrefab, new Vector3(levelData.levels[levelId].civilPositions[i].x,civilPrefab.transform.position.y, levelData.levels[levelId].civilPositions[i].y),Quaternion.identity);
+            civil.transform.parent = civilParent;
+        }
+
     }
 
     // Update is called once per frame
@@ -57,6 +75,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void SetUnit() {
+        unitsDeployed++;
         unitsToNextHorde--;
         Debug.Log("SetUnit");
         if (unitsToNextHorde == 0) {
@@ -83,6 +102,22 @@ public class GameManager : MonoBehaviour
     public void LoseLive() {
         lives--;
         UIController.instance.SetLivesText(lives);
+        if(lives == 0)
+        {
+            FinishLevel(false);
+        }
+    }
+
+    public void FinishLevel(bool pass) {
+        points = zombiesKilled * pointsPerZombie;
+        DataController.instance.PlusData(points,zombiesKilled,unitsDeployed,pass);
+    }
+
+    public void RescueCivil() {
+        restantCivils--;
+        if(restantCivils == 0) {
+            FinishLevel(true);
+        }
     }
 
 }

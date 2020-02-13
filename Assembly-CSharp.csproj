@@ -64,12 +64,17 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\CivilController.cs" />
+    <Compile Include="Assets\Scripts\DataController.cs" />
     <Compile Include="Assets\Scripts\DesactivateHelper.cs" />
     <Compile Include="Assets\Scripts\DoorControl.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\EnemyGenerator.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\LevelButtonController.cs" />
+    <Compile Include="Assets\Scripts\LevelScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\LevelSelectorController.cs" />
     <Compile Include="Assets\Scripts\LightController.cs" />
+    <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\ShadowController.cs" />
     <Compile Include="Assets\Scripts\SpotController.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />

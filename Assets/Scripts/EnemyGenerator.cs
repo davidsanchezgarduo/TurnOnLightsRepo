@@ -31,6 +31,7 @@ public class EnemyGenerator : MonoBehaviour
 
     public void RemoveEnemy(EnemyController e) {
         enemies.Remove(e);
+        GameManager.instance.zombiesKilled++;
         if (GameManager.instance.hasFinishSpawn && enemies.Count == 0) {
             GameManager.instance.FinishHorde();
         }
