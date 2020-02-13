@@ -30,10 +30,12 @@ public class UnityController : MonoBehaviour
 
     private UnitState currentState;
     private float currentTimeAttack;
+    private bool paused;
 
     // Start is called before the first frame update
     void Start()
     {
+        paused = false;
         currentTimeAttack = 0;
         currentState = UnitState.SEARCHING;
         initialLives = lives;
@@ -46,6 +48,10 @@ public class UnityController : MonoBehaviour
     // Update is called once per frame
     public void UpdateUnit()
     {
+
+        if (paused) {
+            return;
+        }
 
         if(lives == 0) {
             return;
@@ -101,7 +107,16 @@ public class UnityController : MonoBehaviour
         return false;
     }
 
-    public void StablishUnit() {
+    public void StablishUnit(UnitLevelData stadistics, string name) {
         GetComponent<MeshRenderer>().material = normalMaterial;
+        typeName = name;
+        forceAttack = stadistics.forceAttack;
+        lightRange = stadistics.lightRange;
+        speedAttack = stadistics.speedAttack;
+        lives = stadistics.lives;
+    }
+
+    public void Paused(bool p) {
+        paused = p;
     }
 }

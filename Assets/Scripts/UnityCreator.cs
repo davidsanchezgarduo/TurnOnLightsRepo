@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using TMPro;
 
 public class UnityCreator : MonoBehaviour
 {
     public int typeId;
+    public TextMeshProUGUI myName;
     private GameObject prefabObject;
     private GameObject currentUnity;
     private Material currentUnityMaterial;
     private Camera mainCamera;
     private Vector3 dir;
     private Color initialColor;
+    public Image myImage;
 
     // Start is called before the first frame update
-    void Start()
+    public void Init(int id, Sprite s, string name)
     {
+        typeId = id;
+        myImage.sprite = s;
+        myName.text = name;
         prefabObject = UnitiesManager.instance.GetUnityPrefab(typeId);
         mainCamera = Camera.main;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void StartDrag(Vector2 posTouch) {
@@ -67,7 +68,7 @@ public class UnityCreator : MonoBehaviour
                 if (b1 && b2)
                 {
                     currentUnityMaterial.color = initialColor;
-                    UnitiesManager.instance.AddUnity(currentUnity);
+                    UnitiesManager.instance.AddUnity(currentUnity,typeId);
                     currentUnity = null;
                     currentUnityMaterial = null;
                 }

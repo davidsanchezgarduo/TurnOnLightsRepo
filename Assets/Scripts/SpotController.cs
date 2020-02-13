@@ -27,7 +27,7 @@ public class SpotController : MonoBehaviour
             //Debug.Log("time Spawn "+currentTimeSpawn);
             currentTimeSpawn += Time.deltaTime;
             if (currentTimeSpawn > timeSpawn) {
-                EnemyGenerator.instance.CreateEnemy(0,transform.position);
+                EnemyGenerator.instance.CreateEnemy(GetEnemyId(),transform.position);
                 currentEnemiesSpawn ++;
                 currentTimeSpawn = 0;
                 if (currentEnemiesSpawn >= currenMaxEnemies) {
@@ -38,6 +38,18 @@ public class SpotController : MonoBehaviour
 
         return finishSpawn;
 
+    }
+
+    private int GetEnemyId() {
+        int r = Random.Range(0,10);
+        if (r < 7)
+        {
+            r = 0;
+        }
+        else {
+            r = 1;
+        }
+        return r;
     }
 
     public void StartHorde(float plusDifficult) {

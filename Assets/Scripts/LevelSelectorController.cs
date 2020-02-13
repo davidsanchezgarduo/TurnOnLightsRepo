@@ -36,6 +36,7 @@ public class LevelSelectorController : MonoBehaviour
     }
 
     public void ClickStart() {
+        DataController.instance.LastLevelSelected = levelsData.levels[currentLevel].sceneName;
         SceneManager.LoadScene(levelsData.levels[currentLevel].sceneName);
     }
 

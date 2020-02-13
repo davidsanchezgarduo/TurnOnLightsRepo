@@ -30,11 +30,12 @@ public class EnemyController : MonoBehaviour
     private float currentTimeAttack;
 
     public Transform areaCircle;
+    private bool paused;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        paused = false;
         areaCircle.localScale = new Vector3(visionRange * 2, 0.01f, visionRange * 2);
         initialLives = lives;
         agent = GetComponent<NavMeshAgent>();
@@ -53,6 +54,10 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (paused) {
+            return;
+        }
         if(lives == 0) {
             return;
         }
@@ -140,5 +145,10 @@ public class EnemyController : MonoBehaviour
             lifeImage.fillAmount = (float)lives / (float)initialLives;
         }
         return false;
+    }
+
+    public void Paused(bool p)
+    {
+        paused = p;
     }
 }

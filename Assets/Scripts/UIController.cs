@@ -15,6 +15,14 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI hordeText;
     public TextMeshProUGUI livesText;
     private bool menuOpen;
+    public UnitScriptableObject unitScriptable;
+    private GameObject unitPrefab;
+    public Transform content;
+    public GameObject gameOverPanel;
+    public TextMeshProUGUI messageText;
+
+    private float widthButton = 120;
+    private float offsetButton = 30;
 
     public void Awake()
     {
@@ -24,16 +32,20 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameOverPanel.SetActive(false);
         pauseAnimator.gameObject.SetActive(false);
         dataText.text = "Unidad: \nFuerza: \nVelocidad: \nRango: \nVitalidad: ";
         hordeText.text = "Horde: 0";
         menuOpen = false;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < unitScriptable.units.Length; i++) {
+            GameObject g = Instantiate(unitPrefab,Vector3.zero,Quaternion.identity);
+            g.transform.parent = content;
+            g.GetComponent<RectTransform>().position = Vector3.zero;
+            g.GetComponent<RectTransform>().anchoredPosition = new Vector2(((i + 1) * offsetButton) + (i * widthButton), 50);
+            g.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
+            g.GetComponent<UnityCreator>().Init(i,unitScriptable.units[i].image, unitScriptable.units[i].typeName);
+        }
     }
 
     public void EnterMenu() {
@@ -51,16 +63,22 @@ public class UIController : MonoBehaviour
     public void ClickPause() {
         pauseAnimator.gameObject.SetActive(true);
         pauseAnimator.SetTrigger("In");
-        
+
+        UnitiesManager.instance.PausedGame(true);
+        EnemyGenerator.instance.PausedGame(true);
+        CameraControl.instance.PausedGame(true);
     }
 
     public void ResumeGame() {
         Time.timeScale = 1;
         pauseAnimator.SetTrigger("Out");
+        UnitiesManager.instance.PausedGame(false);
+        EnemyGenerator.instance.PausedGame(false);
+        CameraControl.instance.PausedGame(false);
     }
 
     public void ExitGame() {
-
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void SetUnitData(string _name, float _force, float speed, float _range, int _live) {
@@ -88,6 +106,26 @@ public class UIController : MonoBehaviour
 
     public void SetLivesText(int lives) {
         livesText.text = "Vidas: " + lives;
+    }
+
+    public void FinishGame(bool win) {
+        if (win)
+        {
+            messageText.text = "Ganaste";
+        }
+        else {
+            messageText.text = "Perdiste";
+        }
+
+        gameOverPanel.SetActive(false);
+    }
+
+    public void ClickContinue() {
+        SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void ClickRetry() {
+        SceneManager.LoadScene(DataController.instance.LastLevelSelected);
     }
 
 }

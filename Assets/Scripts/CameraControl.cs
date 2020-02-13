@@ -15,6 +15,8 @@ public class CameraControl : MonoBehaviour
 
     public bool inMovement;
 
+    private bool paused;
+
     private void Awake()
     {
         instance = this;
@@ -23,6 +25,7 @@ public class CameraControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        paused = false;
         inMovement = true;
         transform.position = new Vector3(startPosition.x,transform.position.y, startPosition.y);
         lastPosition = new Vector2(-1,-1);
@@ -31,6 +34,10 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (paused) {
+            return;
+        }
 
 #if UNITY_ANDROID
         if (Input.touchCount > 0) {
@@ -114,5 +121,9 @@ public class CameraControl : MonoBehaviour
         }
 #endif
 
+    }
+
+    public void PausedGame(bool p) {
+        paused = p;
     }
 }

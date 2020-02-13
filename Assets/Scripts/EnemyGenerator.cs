@@ -49,4 +49,12 @@ public class EnemyGenerator : MonoBehaviour
         }
         return null;
     }
+
+    public void PausedGame(bool p)
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].Paused(p);
+        }
+    }
 }

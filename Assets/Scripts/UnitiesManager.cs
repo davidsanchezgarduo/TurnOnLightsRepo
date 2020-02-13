@@ -13,6 +13,7 @@ public class UnitiesManager : MonoBehaviour
     private List<CivilController> civils;
     private float distanceMinBetween = 0.5f;
     private ShadowController shadow;
+    public UnitScriptableObject unitScriptable;
 
     public bool inHorde;
 
@@ -84,10 +85,10 @@ public class UnitiesManager : MonoBehaviour
         return isPosiblePos;
     }
 
-    public void AddUnity(GameObject unityToAdd) {
+    public void AddUnity(GameObject unityToAdd,int typeId) {
         GameManager.instance.SetUnit();
         UnityController u = unityToAdd.GetComponent<UnityController>();
-        u.StablishUnit();
+        u.StablishUnit(unitScriptable.units[typeId].levelsDescription[DataController.instance.unitsData.units[typeId].level], unitScriptable.units[typeId].typeName);
         unities.Add(u);
         SearchInteractableObjects(u.transform.position,u.lightRange);
 
@@ -165,6 +166,12 @@ public class UnitiesManager : MonoBehaviour
             {
                 civils[i].ActiveCivil();
             }
+        }
+    }
+
+    public void PausedGame(bool p) {
+        for (int i = 0; i < unities.Count; i++) {
+            unities[i].Paused(p);
         }
     }
 }

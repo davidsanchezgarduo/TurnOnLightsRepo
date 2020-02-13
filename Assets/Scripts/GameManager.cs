@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
     public void FinishLevel(bool pass) {
         points = zombiesKilled * pointsPerZombie;
         DataController.instance.PlusData(points,zombiesKilled,unitsDeployed,pass);
+        UIController.instance.FinishGame(pass);
     }
 
     public void RescueCivil() {

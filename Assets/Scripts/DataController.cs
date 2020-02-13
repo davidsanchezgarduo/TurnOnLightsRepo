@@ -12,25 +12,45 @@ public class PlayerData{
     public int lastlevel;
 }
 
+[System.Serializable]
+public class Unit {
+    public string typeName;
+    public int level;
+}
+
+[System.Serializable]
+public class UnitsData {
+    public Unit[] units; 
+}
+
 public class DataController : MonoBehaviour
 {
     public static DataController instance;
     public string playerDataPath = "player.json";
     public PlayerData playerData;
 
+    public string unitsDataPath = "units.json";
+    public UnitsData unitsData;
+
+    public string LastLevelSelected;
+
     void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (File.Exists(Application.persistentDataPath + "/" + playerDataPath)) {
+        
+        if (File.Exists(Application.persistentDataPath + "/" + playerDataPath))
+        {
             string json = File.ReadAllText(Application.persistentDataPath + "/" + playerDataPath);
             playerData = JsonUtility.FromJson<PlayerData>(json);
         }
-        else {
+        else
+        {
             playerData = new PlayerData();
             playerData.points = 0;
             playerData.zombieskilled = 0;
@@ -38,6 +58,24 @@ public class DataController : MonoBehaviour
             playerData.lastlevel = 0;
             string json = JsonUtility.ToJson(playerData);
             File.WriteAllText(Application.persistentDataPath + "/" + playerDataPath, json);
+        }
+
+        if (File.Exists(Application.persistentDataPath + "/" + unitsDataPath))
+        {
+            string json = File.ReadAllText(Application.persistentDataPath + "/" + unitsDataPath);
+            unitsData = JsonUtility.FromJson<UnitsData>(json);
+        }
+        else
+        {
+            unitsData = new UnitsData();
+            unitsData.units = new Unit[2];
+            unitsData.units[0] = new Unit();
+            unitsData.units[0].typeName = "Pistolero";
+            unitsData.units[0].level = 1;
+            unitsData.units[1] = new Unit();
+            unitsData.units[1].typeName = "Francotirador";
+            unitsData.units[1].level = 1;
+
         }
     }
 
@@ -55,6 +93,15 @@ public class DataController : MonoBehaviour
         }
         SaveData();
 
+    }
+
+    public void SaveUnitsData() {
+        string json = JsonUtility.ToJson(unitsData);
+        File.WriteAllText(Application.persistentDataPath + "/" + unitsDataPath, json);
+    }
+
+    public void LevelUpUnit(int id) {
+        unitsData.units[id].level++;
     }
 
 
